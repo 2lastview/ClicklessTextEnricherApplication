@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:id="@+id/fuckYou">
+    
+    <TextView
+        android:id="@+id/logo_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CLICKLESS TEXT ENRICHER"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textColor="#696969"
+        android:textSize="14sp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:id="@+id/help_smallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\?"
+        android:textColor="#696969"
+        android:background="@drawable/help_button"
+        android:textSize="16sp"
+        android:elevation="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true" />
+
+    <LinearLayout
+        android:id="@+id/tabs_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/settings_textView"
+        android:layout_below="@+id/logo_textView"
+        android:layout_marginTop="30dp" >
+
+        <com.example.moritztomasi.clicklesstextenricherapplication.common.SlidingTabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:background="#324D5B" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/settings_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TRANSLATION SETTINGS"
+        android:textColor="#696969"
+        android:textSize="11sp"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/to_language_button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/from_language_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FROM"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/from_language_button"
+        android:layout_above="@+id/go_button"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="30dp"
+        android:elevation="10dp"
+        android:layout_marginLeft="20dp" />
+
+    <Button
+        android:id="@+id/to_language_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TO"
+        android:textSize="13sp"
+        android:textColor="#696969"
+        android:background="@drawable/to_language_button"
+        android:layout_above="@+id/go_button"
+        android:layout_marginBottom="30dp"
+        android:elevation="10dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/enrich_language_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENRICH"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/enrich_language_button"
+        android:layout_above="@+id/go_button"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:elevation="10dp"
+        android:layout_marginRight="20dp" />
+
+    <Button
+        android:id="@+id/go_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="GO"
+        android:textColor="#696969"
+        android:textSize="13sp"
+        android:background="#E8E8E8"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
