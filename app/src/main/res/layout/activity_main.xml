@@ -15,6 +15,7 @@
         android:textColor="#696969"
         android:textSize="14sp" />
 
+    <!--
     <Button
         style="?android:attr/buttonStyleSmall"
         android:id="@+id/help_smallButton"
@@ -28,6 +29,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="10dp"
         android:layout_alignParentRight="true" />
+    -->
 
     <LinearLayout
         android:id="@+id/tabs_layout"
@@ -76,6 +78,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="30dp"
         android:elevation="10dp"
+        android:onClick="showTranslateFromDialog"
         android:layout_marginLeft="20dp" />
 
     <Button
@@ -88,6 +91,7 @@
         android:background="@drawable/to_language_button"
         android:layout_above="@+id/go_button"
         android:layout_marginBottom="30dp"
+        android:onClick="showTranslateToDialog"
         android:elevation="10dp"
         android:layout_centerHorizontal="true" />
 
@@ -102,6 +106,7 @@
         android:layout_above="@+id/go_button"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="30dp"
+        android:onClick="showEnrichDialog"
         android:elevation="10dp"
         android:layout_marginRight="20dp" />
 
