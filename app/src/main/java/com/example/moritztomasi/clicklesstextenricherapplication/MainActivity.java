@@ -1,7 +1,12 @@
 package com.example.moritztomasi.clicklesstextenricherapplication;
 
 import android.app.DialogFragment;
+import android.content.Intent;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -12,18 +17,25 @@ import android.widget.Button;
 import com.example.moritztomasi.clicklesstextenricherapplication.common.SlidingTabLayout;
 import com.example.moritztomasi.clicklesstextenricherapplication.common.ViewPagerAdapter;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends FragmentActivity implements
         ChooseFromLanguageDialog.ChooseFromLanguageListener,
         ChooseToLanguageDialog.ChooseToLanguageListener,
         ChooseEnrichLanguageDialog.ChooseEnrichLanguageListener {
 
+    private static final CharSequence titles[] = {"CAMERA", "GALLERY"};
+    private static final int NUM_TABS = 2;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private String currentImagePath;
+    private File currentImage;
+
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-
-    private final CharSequence titles[] = {"CAMERA", "GALLERY"};
-
-    private final int NUM_TABS = 2;
 
     private String fromLanguage = null;
     private String toLanguage = null;
@@ -121,4 +133,47 @@ public class MainActivity extends FragmentActivity implements
                     break;
         }
     }
+
+    /** Image From Camera **/
+
+    public void getImageFromCamera(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if(takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File imageFile = null;
+            try {
+                imageFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(imageFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+                MediaScannerConnection.scanFile(this, new String[] { imageFile.toString() }, null, null);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CTE");
+
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        currentImagePath = "file:" + image.getAbsolutePath();
+        currentImage = image;
+
+        return image;
+    }
+
+    /** /Image From Camera **/
+
+    /** Image from Gallery **/
+
+    
+
+    /** /Image from Gallery **/
 }

@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import java.util.zip.Inflater;
+
 public class ChooseToLanguageDialog extends DialogFragment {
 
     private ChooseToLanguageListener toLanguageListener;
@@ -27,12 +29,12 @@ public class ChooseToLanguageDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence[] languages = {"English", "German", "Italian"};
 
-        builder.setTitle("TRANSLATE TO")
-                .setItems(languages, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        toLanguageListener.onToLanguageDialogClick(which);
-                    }
-                });
+        builder.setTitle("TRANSLATE FROM")
+               .setItems(languages, new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int which) {
+                       toLanguageListener.onToLanguageDialogClick(which);
+                   }
+               });
 
         return builder.create();
     }
