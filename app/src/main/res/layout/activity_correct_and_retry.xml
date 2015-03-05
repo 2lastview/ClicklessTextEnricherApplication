@@ -1,10 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
     android:id="@+id/fuckYou">
-    
+
     <TextView
         android:id="@+id/logo_textView"
         android:layout_width="wrap_content"
@@ -15,43 +14,62 @@
         android:textColor="#696969"
         android:textSize="14sp" />
 
-    <!--
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:id="@+id/help_smallButton"
+        android:id="@+id/back_smallButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\?"
         android:textColor="#696969"
         android:background="@drawable/help_button"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:elevation="10dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true" />
-    -->
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true" />
 
     <LinearLayout
-        android:id="@+id/tabs_layout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_below="@id/logo_textView"
         android:layout_above="@+id/settings_textView"
-        android:layout_below="@+id/logo_textView"
-        android:layout_marginTop="30dp" >
+        android:layout_marginTop="40dp" >
 
-        <com.example.moritztomasi.clicklesstextenricherapplication.common.SlidingTabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:background="#7EA6E0"
+            android:text="CORRECT MISTAKES MANUALLY"
+            android:textSize="13sp"
             android:elevation="10dp"
-            android:background="#324D5B" />
+            android:textColor="#FFFFFF" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:background="#E8E8E8"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
+            android:elevation="2dp" >
+
+            <EditText
+                android:id="@+id/edit_original_editText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:lineSpacingExtra="5dp"
+                android:background="#00000000"
+                android:textColor="#696969"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp" />
+
+        </ScrollView>
 
     </LinearLayout>
 
@@ -67,18 +85,18 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:id="@+id/from_language_button"
+        android:id="@+id/original_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FROM"
+        android:text="SHOW\nORIGINAL\nIMAGE"
         android:textSize="13sp"
         android:textColor="#FFFFFF"
         android:background="@drawable/from_language_button"
         android:layout_above="@+id/go_button"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="30dp"
+        android:onClick="showOriginalImage"
         android:elevation="10dp"
-        android:onClick="showTranslateFromDialog"
         android:layout_marginLeft="20dp" />
 
     <Button

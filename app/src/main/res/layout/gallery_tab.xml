@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:background="#00000000"
         android:src="@drawable/gallery_icon"
+        android:onClick="getImageFromGallery"
         android:layout_marginTop="45dp"
         android:layout_centerHorizontal="true" />
 
