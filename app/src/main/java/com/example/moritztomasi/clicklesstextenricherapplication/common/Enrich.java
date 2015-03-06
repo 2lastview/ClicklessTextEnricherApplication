@@ -1,6 +1,7 @@
 package com.example.moritztomasi.clicklesstextenricherapplication.common;
 
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 
 import com.example.moritztomasi.clicklesstextenricherapplication.AsyncResponse;
@@ -15,6 +16,8 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,7 +94,7 @@ public class Enrich {
         new ImageTransferTask(asyncResponse).execute();
     }
 
-    public class ImageTransferTask extends AsyncTask<Void, Void, String> {
+    public class ImageTransferTask extends AsyncTask<Void, Void, JSONObject> {
 
         private AsyncResponse asyncResponse;
 
@@ -100,7 +103,7 @@ public class Enrich {
         }
 
         @Override
-        protected String doInBackground(Void... parameters) {
+        protected JSONObject doInBackground(Void... parameters) {
             File image = new File(imagePath.substring(5, imagePath.length()));
             String responseString = "";
 
@@ -116,14 +119,14 @@ public class Enrich {
             entityBuilder.addTextBody("filetype", fileType);
 
             if(text != null && text.length() > 0) {
-                entityBuilder.addTextBody("text", text);
+                entityBuilder.addTextBody("text", Base64.encodeToString(text.getBytes(), Base64.DEFAULT));
             }
             else if(image != null) {
                 entityBuilder.addBinaryBody("image", image);
             }
             else {
                 responseString = "{ 'error': 'Could not send request.' }";
-                return responseString;
+                return getJSON(responseString);
             }
 
             HttpEntity httpEntity = entityBuilder.build();
@@ -131,13 +134,13 @@ public class Enrich {
             HttpParams params = httpClient.getParams();
             httpPost.setParams(params);
 
-            HttpResponse httpResponse = null;
+            HttpResponse httpResponse;
             try {
                 httpResponse = httpClient.execute(httpPost);
             }
             catch(IOException e) {
                 responseString = "{ 'error': 'Could not send request.' }";
-                return responseString;
+                return getJSON(responseString);
             }
 
             HttpEntity httpEntityResponse = httpResponse.getEntity();
@@ -160,12 +163,24 @@ public class Enrich {
                 responseString = "{ 'error': 'Response faulty.' }";
             }
 
-            return responseString;
+            return getJSON(responseString);
         }
 
         @Override
-        protected void onPostExecute(String response) {
-            asyncResponse.postFinish(response);
+        protected void onPostExecute(JSONObject json) {
+            asyncResponse.postFinish(json);
+        }
+
+        private JSONObject getJSON(String response) {
+            JSONObject json = null;
+            try {
+                json = new JSONObject(response);
+            } catch (JSONException e) {
+                Log.d(CLASS_TAG, "Exception while putting in JSONObject");
+                e.printStackTrace();
+            }
+
+            return json;
         }
     }
 }

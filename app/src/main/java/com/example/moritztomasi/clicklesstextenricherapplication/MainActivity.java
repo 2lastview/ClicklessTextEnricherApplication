@@ -13,8 +13,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -90,14 +88,6 @@ public class MainActivity extends FragmentActivity implements
 
         tabs.setViewPager(pager);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
 
     /** TRANSLATION SETTINGS **/
 
@@ -285,15 +275,7 @@ public class MainActivity extends FragmentActivity implements
     }
 
     @Override
-    public void postFinish(String response) {
-        JSONObject json = null;
-        try {
-            json = new JSONObject(response);
-        } catch (JSONException e) {
-            Log.d(CLASS_TAG, "Exception while putting in JSONObject");
-            e.printStackTrace();
-        }
-
+    public void postFinish(JSONObject json) {
         String detected = "";
         String text = "";
         String translation = "";

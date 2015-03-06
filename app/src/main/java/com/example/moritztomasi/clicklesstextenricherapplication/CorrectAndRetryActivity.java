@@ -153,15 +153,7 @@ public class CorrectAndRetryActivity extends Activity implements
     }
 
     @Override
-    public void postFinish(String response) {
-        JSONObject json = null;
-        try {
-            json = new JSONObject(response);
-        } catch (JSONException e) {
-            Log.d(CLASS_TAG, "Exception while putting in JSONObject");
-            e.printStackTrace();
-        }
-
+    public void postFinish(JSONObject json) {
         String detected = "";
         String text = "";
         String translation = "";
