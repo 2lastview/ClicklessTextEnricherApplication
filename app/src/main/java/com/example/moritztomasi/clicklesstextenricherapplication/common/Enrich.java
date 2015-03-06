@@ -24,6 +24,14 @@ import java.util.List;
 public class Enrich {
 
     private static final String CLASS_TAG = "Enrich";
+    private static final String URL = "http://131.130.133.58:8080/enrich";
+
+    private String source;
+    private String target;
+    private Boolean enrich;
+    private String fileType;
+    private String imagePath;
+    private String text;
 
     public void enrichFromImage(AsyncResponse asyncResponse, String source, String target, Boolean enrich, String imagePath, String text) throws ValidationException, SupportException {
         Log.i(CLASS_TAG, "enrichFromImage in Enrich called with parameters: source=" + source + " target=" + target + " enrich=" + enrich);
@@ -40,24 +48,34 @@ public class Enrich {
         toLanguages.add("deu");
         toLanguages.add("ita");
 
+        this.fileType = "png";
+
         if(source == null) {
             Log.d(CLASS_TAG, "source cannot be null");
             throw new ValidationException("You have to choose a language to translate from.");
         }
+        else this.source = source;
 
         if(target == null) {
             Log.d(CLASS_TAG, "target cannot be null");
             throw new ValidationException("You have to choose a language to translate to.");
         }
+        else this.target = target;
 
         if(enrich == null) {
             Log.d(CLASS_TAG, "enrich cannot be null");
             throw new ValidationException("You have to choose if the text should be enriched.");
         }
+        else this.enrich = enrich;
 
         if(imagePath == null) {
             Log.d(CLASS_TAG, "imagePath cannot be null");
             throw new ValidationException("You have to choose a image.");
+        }
+        else this.imagePath = imagePath;
+
+        if(text != null && text.length() > 0) {
+            this.text = text;
         }
 
         if(!fromLanguages.contains(source)) {
@@ -70,19 +88,10 @@ public class Enrich {
             throw new SupportException("target language is not supported.");
         }
 
-        String url = "";
-        if (!source.equals("unk")) url = "http://131.130.133.240:8080/enrich?source=" + source + "&target=" + target + "&enrich=" + enrich.toString() + "&filetype=png";
-        else url = "http://131.130.133.240:8080/enrich?target=" + target + "&enrich=" + enrich.toString() + "&filetype=png";
-
-        if(text == null || text.length() <= 0) {
-            new ImageTransferTask(asyncResponse).execute(url, imagePath);
-        }
-        else {
-            new ImageTransferTask(asyncResponse).execute(url, imagePath, text);
-        }
+        new ImageTransferTask(asyncResponse).execute();
     }
 
-    public class ImageTransferTask extends AsyncTask<String, Void, String> {
+    public class ImageTransferTask extends AsyncTask<Void, Void, String> {
 
         private AsyncResponse asyncResponse;
 
@@ -91,33 +100,27 @@ public class Enrich {
         }
 
         @Override
-        protected String doInBackground(String... parameters) {
-            String url = parameters[0];
-            String imagePath = parameters[1].substring(5, parameters[1].length());
-
-            File image = null;
-            String text = null;
+        protected String doInBackground(Void... parameters) {
+            File image = new File(imagePath.substring(5, imagePath.length()));
             String responseString = "";
 
-            if(parameters.length == 2) {
-                image = new File(imagePath);
-            }
-            else if(parameters.length == 3) {
-                text = parameters[2];
-            }
-            else {
-                responseString = "{ 'error': 'Could not send request.' }";
-                return responseString;
-            }
-
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(URL);
 
             MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
             entityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
-            if(image != null) entityBuilder.addBinaryBody("image", image);
-            else if(text != null) entityBuilder.addTextBody("text", text);
+            if(!source.equals("unk")) entityBuilder.addTextBody("source", source);
+            entityBuilder.addTextBody("target", target);
+            entityBuilder.addTextBody("enrich", enrich.toString());
+            entityBuilder.addTextBody("filetype", fileType);
+
+            if(text != null && text.length() > 0) {
+                entityBuilder.addTextBody("text", text);
+            }
+            else if(image != null) {
+                entityBuilder.addBinaryBody("image", image);
+            }
             else {
                 responseString = "{ 'error': 'Could not send request.' }";
                 return responseString;
