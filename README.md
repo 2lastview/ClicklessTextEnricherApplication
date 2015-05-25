@@ -22,8 +22,8 @@ a little longer you can search for it in Wikipedia, Wiktionary or on Google.
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/3.1.png" width="400px" />
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/3.2.png" width="400px" />
 
-* By tapping CORRECT AND RETRY you can correct the mistakes made by the ocr engine
-manually.
+* By tapping CORRECT AND RETRY you can correct the mistakes made by the ocr engine manually. In this
+stage there is also the possibility to change the TO language.
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/4.png" width="400px" />
 
 * By swiping left, or tapping on the IMAGE tab, you can see the chosen image.
