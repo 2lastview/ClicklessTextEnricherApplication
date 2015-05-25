@@ -1,35 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
-    android:id="@+id/fuckYou">
-    
-    <TextView
-        android:id="@+id/logo_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CLICKLESS TEXT ENRICHER"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:textColor="#696969"
-        android:textSize="14sp" />
-
-    <!--
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:id="@+id/help_smallButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\?"
-        android:textColor="#696969"
-        android:background="@drawable/help_button"
-        android:textSize="16sp"
-        android:elevation="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true" />
-    -->
+    android:background="#FAFAFA">
 
     <LinearLayout
         android:id="@+id/tabs_layout"
@@ -37,20 +9,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_above="@+id/settings_textView"
-        android:layout_below="@+id/logo_textView"
-        android:layout_marginTop="30dp" >
+        android:layout_marginTop="0dp" >
 
         <com.example.moritztomasi.clicklesstextenricherapplication.common.SlidingTabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
-            android:background="#324D5B" />
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:background="#E0B87E" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -59,9 +31,9 @@
         android:id="@+id/settings_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TRANSLATION SETTINGS"
+        android:text="@string/textView_translation_settings"
         android:textColor="#696969"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:layout_marginBottom="25dp"
         android:layout_above="@+id/to_language_button"
         android:layout_centerHorizontal="true" />
@@ -70,14 +42,13 @@
         android:id="@+id/from_language_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FROM"
+        android:text="@string/imageButton_from"
         android:textSize="13sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#FAFAFA"
         android:background="@drawable/from_language_button"
         android:layout_above="@+id/go_button"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="30dp"
-        android:elevation="10dp"
         android:onClick="showTranslateFromDialog"
         android:layout_marginLeft="20dp" />
 
@@ -85,41 +56,69 @@
         android:id="@+id/to_language_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TO"
+        android:text="@string/imageButton_to"
         android:textSize="13sp"
-        android:textColor="#696969"
+        android:textColor="#FAFAFA"
         android:background="@drawable/to_language_button"
         android:layout_above="@+id/go_button"
         android:layout_marginBottom="30dp"
         android:onClick="showTranslateToDialog"
-        android:elevation="10dp"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:id="@+id/enrich_language_button"
+        android:id="@+id/original_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ENRICH"
+        android:text="@string/imageButton_show_chosen_image"
         android:textSize="13sp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/enrich_language_button"
+        android:textColor="#FAFAFA"
+        android:background="@drawable/edit_image_button"
         android:layout_above="@+id/go_button"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="30dp"
-        android:onClick="showEnrichDialog"
-        android:elevation="10dp"
+        android:onClick="editOriginalImage"
         android:layout_marginRight="20dp" />
 
     <Button
         android:id="@+id/go_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="GO"
+        android:text="@string/button_go"
         android:textColor="#696969"
         android:textSize="13sp"
         android:background="#E8E8E8"
         android:onClick="go"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/progress_bar_relativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:onClick="untouchable"
+        android:background="#E0B87E"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/bar_progressBar"
+            android:text="@string/textView_loading"
+            android:layout_marginBottom="15dp"
+            android:textColor="#FAFAFA"
+            android:textSize="22sp"/>
+
+        <ProgressBar
+            android:id="@+id/bar_progressBar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/progress_bar_background"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

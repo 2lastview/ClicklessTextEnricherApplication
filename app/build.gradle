@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 16
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.example.moritztomasi.clicklesstextenricherapplication"
-        minSdkVersion 21
-        targetSdkVersion 21
+        minSdkVersion 16
+        targetSdkVersion 16
         versionCode 1
         versionName "1.0"
     }
@@ -32,10 +32,14 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:support-v4:22.0.0'
     compile 'com.github.amlcurran.showcaseview:library:5.0.0'
     compile('org.apache.httpcomponents:httpmime:4.3.6') {
         exclude module: 'httpclient'
     }
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    repositories {
+        mavenCentral()
+    }
+    compile 'com.sothree.slidinguppanel:library:3.0.0'
 }

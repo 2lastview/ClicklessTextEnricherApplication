@@ -9,24 +9,38 @@
 
     <application
         android:allowBackup="true"
-        android:label="CLICKLESS TEXT ENRICHER"
+        android:label="@string/app_name"
+        android:icon="@drawable/app_icon"
         android:theme="@style/CTETheme" >
+
         <activity
-            android:name=".MainActivity"
-            android:label="CLICKLESS TEXT ENRICHER" >
+            android:name=".activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".ShowTranslationActivity"
-            android:label="@string/title_activity_show_translation" >
+            android:name=".activities.ResultActivity"
+            android:label="@string/title_activity_result"
+            android:parentActivityName=".activities.MainActivity"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
+
         <activity
-            android:name=".CorrectAndRetryActivity"
-            android:label="@string/title_activity_correct_and_retry" >
+            android:name=".activities.RetryActivity"
+            android:label="@string/title_activity_retry"
+            android:parentActivityName=".activities.ResultActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.ResultActivity" />
         </activity>
     </application>
 

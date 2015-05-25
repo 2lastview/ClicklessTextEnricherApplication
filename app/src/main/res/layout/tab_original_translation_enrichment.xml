@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_pane_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="50dp"
+        sothree:umanoShadowHeight="2dp"
+        sothree:umanoOverlay="true"
+        sothree:umanoInitialState="hidden">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="2" >
+
+            <TextView
+                android:id="@+id/original_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#30343F"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E8E8E8"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1" >
+
+                <com.example.moritztomasi.clicklesstextenricherapplication.common.SelectionText
+                    android:id="@+id/original_text_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:background="#00000000"
+                    android:textColor="#696969"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:inputType="none"
+                    android:textIsSelectable="true" />
+
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/translation_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#30343F"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E8E8E8"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1" >
+
+                <com.example.moritztomasi.clicklesstextenricherapplication.common.SelectionText
+                    android:id="@+id/translation_text_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:background="#00000000"
+                    android:textColor="#696969"
+                    android:textSize="16sp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:inputType="none"
+                    android:textIsSelectable="true" />
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/sliding_up_panel"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FAFAFA">
+
+            <Button
+                android:id="@+id/wikipedia_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#E0B87E"
+                android:text="@string/button_wikipedia"
+                android:textColor="#FAFAFA"
+                android:textSize="14sp"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:onClick="wikipedia"/>
+
+            <Button
+                android:id="@+id/wiktionary_button"
+                android:layout_toRightOf="@id/wikipedia_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#E0B87E"
+                android:text="@string/button_wiktionary"
+                android:textColor="#FAFAFA"
+                android:textSize="14sp"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:layout_alignParentTop="true"
+                android:onClick="wiktionary"/>
+
+            <Button
+                android:id="@+id/google_button"
+                android:layout_toRightOf="@id/wiktionary_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#E0B87E"
+                android:text="@string/button_google"
+                android:textColor="#FAFAFA"
+                android:textSize="14sp"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:layout_alignParentTop="true"
+                android:onClick="google"/>
+
+            <ScrollView
+                android:id="@+id/web_scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#E8E8E8"
+                android:layout_margin="10dp"
+                android:layout_below="@id/wikipedia_button"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/web_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:background="#00000000"
+                    android:textColor="#696969"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:inputType="none"
+                    android:textIsSelectable="false" />
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+</RelativeLayout>

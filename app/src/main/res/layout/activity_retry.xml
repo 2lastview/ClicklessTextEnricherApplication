@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
+
+    <LinearLayout
+        android:id="@+id/tabs_layout_car"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/go_button"
+        android:layout_marginTop="0dp" >
+
+        <com.example.moritztomasi.clicklesstextenricherapplication.common.SlidingTabLayout
+            android:id="@+id/tabs_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="0dp"
+            android:background="#E0B87E" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_car"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/go_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_retry"
+        android:textColor="#696969"
+        android:textSize="13sp"
+        android:background="#E8E8E8"
+        android:onClick="go"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

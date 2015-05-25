@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA" >
+
+    <ImageView
+        android:id="@+id/original_image_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E8E8E8"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="showOriginalImage"
+        android:contentDescription="@string/imageView_chosen_image_content_description" />
+
+</RelativeLayout>

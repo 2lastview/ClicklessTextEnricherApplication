@@ -176,7 +176,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
                 outValue, true);
         textView.setBackgroundResource(outValue.resourceId);
-        textView.setAllCaps(true);
+        textView.setAllCaps(false);
 
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
@@ -226,8 +226,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             tabTitleView.setTextColor(getResources().getColorStateList(R.color.tabs));
-            tabTitleView.setTextSize(12);
-            tabTitleView.setTypeface(Typeface.DEFAULT);
+            tabTitleView.setTextSize(18);
+            tabTitleView.setTypeface(null, Typeface.ITALIC);
         }
     }
 
