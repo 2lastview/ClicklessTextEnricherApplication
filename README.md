@@ -8,14 +8,14 @@ repository contains the source code for haello.
 
 ####Description
 
-* You can choose an image from either the gallery or by taking one with the camera.
+* You can choose an image from the gallery or by taking one with the camera.
 
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/1.1.png" width="300px" />
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/1.2.png" width="300px" />
 
-* You can choose a source language by tapping on FROM. If you select "Unknown" the web service will
-detect the language automatically using google translate. By tapping on TO you can select the target
-language. There is also a third option for editing the image.
+* Choose a source language by tapping on FROM. If you select "Unknown" the web service will
+detect the language automatically using [goslate](http://pythonhosted.org/goslate/).
+By tapping on TO you can select the target language. There is also a third option for editing the image.
 
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/2.png" width="300px" />
 
@@ -26,8 +26,8 @@ a little longer you can search for it in Wikipedia, Wiktionary or on Google.
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/3.2.png" width="300px" />
 
 * By tapping CORRECT AND RETRY you can correct the mistakes made by the ocr engine manually. In this
-
 stage there is also the possibility to change the TO language.
+
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/4.png" width="300px" />
 
 * By swiping left, or tapping on the IMAGE tab, you can see the chosen image.
@@ -41,7 +41,15 @@ TRANSLATE_URL can be pointed to the URL where a implementation of the [haello RE
 is deployed. Then simply build and run the project.
 
 ####Support
+
 The application has been tested with SDK version 16 and above.
+
+####Dependencies
+
+* [SlidingUpPanel](https://github.com/umano/AndroidSlidingUpPanel) by umano.
+
+* Wiktionary is not queried directly. A Wiktionary Parser written by Yves Bourques is used. Information
+regarding this parser can be found on his [website](http://www.igrec.ca/projects/wiktionary-text-parser/).
 
 ####Copyright and License
 
