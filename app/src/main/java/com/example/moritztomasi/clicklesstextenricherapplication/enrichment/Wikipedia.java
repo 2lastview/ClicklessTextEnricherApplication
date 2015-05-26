@@ -1,3 +1,19 @@
+/**
+ * Copyright 2015 Moritz Tomasi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.moritztomasi.clicklesstextenricherapplication.enrichment;
 
 import android.net.Uri;
@@ -23,48 +39,30 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
- *
+ * This class is used for the enrichment of selected text using Wikipedia.
  */
 public class Wikipedia {
 
-    /**
-     *
-     */
     private static final String CLASS_TAG = "Wikipedia";
-
-    /**
-     *
-     */
     private String WIKIPEDIA_URL = ".wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&titles=";
 
-    /**
-     *
-     */
     private String titles;
-
-    /**
-     *
-     */
     private String source;
-
-    /**
-     *
-     */
     private String target;
 
-    /**
-     *
-     */
     private WikipediaResponse wikipediaResponse;
 
     /**
+     * The arguments passed to this method are evaluated. In case of an error a {@link ValidationException}
+     * or {@link SupportException} is thrown. In case all evaluations are positive a {@link Wikipedia.WikipediaTask}
+     * is executed.
      *
-     * @param wikipediaResponse
-     * @param titles
-     * @param source
-     * @param target
-     * @throws ValidationException
-     * @throws SupportException
+     * @param wikipediaResponse Activity that calls the method and implements {@link WikipediaResponse}
+     * @param titles Selected text.
+     * @param source Source language.
+     * @param target Target language.
+     * @throws ValidationException Thrown if validation fails.
+     * @throws SupportException Thrown when feature not supported.
      */
     public void enrichFromWikipedia(WikipediaResponse wikipediaResponse, String titles, String source, String target) throws ValidationException, SupportException {
         Log.i(CLASS_TAG, "enrichFromWikipedia in Wikipedia called with wikipediaResponse and parameters: titles" + titles + " source=" + source + " target=" + target);
@@ -119,14 +117,17 @@ public class Wikipedia {
     }
 
     /**
-     *
+     * Custom WikipediaTask extended from {@link AsyncTask} for retrieving information from
+     * Wikipedia
      */
     private class WikipediaTask extends AsyncTask<Void, Void, JSONObject> {
 
         /**
+         * Sends specified arguments to Wikipedia and receives json object as a response. In case
+         * any other {@link HttpStatus} code than OK is returned, a json object with a corresponding
+         * error message is returned.
          *
-         * @param params
-         * @return
+         * @return json object of the retrieved information from Wikipedia.
          */
         @Override
         protected JSONObject doInBackground(Void... params) {
@@ -182,8 +183,8 @@ public class Wikipedia {
         }
 
         /**
-         *
-         * @param json
+         * Calls the method {@link WikipediaResponse#wikipediaFinished(JSONObject)} and passes
+         * on a json object.
          */
         @Override
         protected void onPostExecute(JSONObject json) {

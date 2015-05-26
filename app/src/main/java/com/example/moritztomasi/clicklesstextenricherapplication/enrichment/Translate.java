@@ -1,3 +1,19 @@
+/**
+ * Copyright 2015 Moritz Tomasi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
+
 package com.example.moritztomasi.clicklesstextenricherapplication.enrichment;
 
 import android.os.AsyncTask;
@@ -25,59 +41,33 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *
+ * This class is used for the extraction and translation of text in a chosen image.
  */
 public class Translate {
 
-    /**
-     *
-     */
     private static final String CLASS_TAG = "Translate";
-
-    /**
-     *
-     */
     private static final String TRANSLATE_URL = "";
 
-    /**
-     *
-     */
     private String source;
-
-    /**
-     *
-     */
     private String target;
-
-    /**
-     *
-     */
     private String imagePath;
-
-    /**
-     *
-     */
     private String text;
-
-    /**
-     *
-     */
     private String fileType;
 
-    /**
-     *
-     */
     private TranslateResponse translateResponse;
 
     /**
+     * The arguments passed to this method are evaluated. In case of an error a {@link ValidationException}
+     * or {@link SupportException} is thrown. In case all evaluations are positive a {@link Translate.TranslateTask}
+     * is executed.
      *
-     * @param translateResponse
-     * @param source
-     * @param target
-     * @param imagePath
-     * @param text
-     * @throws ValidationException
-     * @throws SupportException
+     * @param translateResponse Activity that calls the method and implements {@link TranslateResponse}
+     * @param source Source language.
+     * @param target Target language.
+     * @param imagePath Path to the chosen image.
+     * @param text Extracted text (can be null).
+     * @throws ValidationException Thrown if validation fails.
+     * @throws SupportException Thrown when feature not supported.
      */
     public void translateFromImage(TranslateResponse translateResponse, String source, String target, String imagePath, String text) throws ValidationException, SupportException {
         Log.i(CLASS_TAG, "translateFromImage in Translate called with translateResponse and parameters: source=" + source + " target=" + target);
@@ -139,14 +129,17 @@ public class Translate {
     }
 
     /**
-     *
+     * Custom TranslateTask extended from {@link AsyncTask} for retrieving information from
+     * the web service.
      */
     private class TranslateTask extends AsyncTask<Void, Void, JSONObject> {
 
         /**
+         * Sends an image and other specified arguments to the server and receives json object
+         * as a response. In case any other {@link HttpStatus} code than OK is returned, a json
+         * object with a corresponding error message is returned.
          *
-         * @param parameters
-         * @return
+         * @return json object with extracted text, translation and detected language.
          */
         @Override
         protected JSONObject doInBackground(Void... parameters) {
@@ -214,8 +207,8 @@ public class Translate {
         }
 
         /**
-         *
-         * @param json
+         * Calls the method {@link TranslateResponse#translateFinished(JSONObject)} and passes
+         * on a json object.
          */
         @Override
         protected void onPostExecute(JSONObject json) {
@@ -223,11 +216,6 @@ public class Translate {
             translateResponse.translateFinished(json);
         }
 
-        /**
-         *
-         * @param response
-         * @return
-         */
         private JSONObject getJSON(String response) {
             JSONObject json = null;
             try {

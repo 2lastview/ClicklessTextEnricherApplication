@@ -1,3 +1,19 @@
+/**
+ * Copyright 2015 Moritz Tomasi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.moritztomasi.clicklesstextenricherapplication.enrichment;
 
 import android.net.Uri;
@@ -23,48 +39,34 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
+ * This class is used for the enrichment of selected text using Wiktionary.
  *
+ * Wiktionary is not queried directly. A Wiktionary Parser written by Yves Bourques is used.
+ * Information regarding this parser can be found on his website:
+ * http://www.igrec.ca/projects/wiktionary-text-parser/
  */
 public class Wiktionary {
 
-    /**
-     *
-     */
     private static final String CLASS_TAG = "Wiktionary";
-
-    /**
-     *
-     */
     private String WIKTIONARY_URL = "http://www.igrec.ca/project-files/wikparser/wikparser.php?query=def&count=5&word=";
 
-    /**
-     *
-     */
     private String word;
-
-    /**
-     *
-     */
     private String source;
-
-    /**
-     *
-     */
     private String target;
 
-    /**
-     *
-     */
     private WiktionaryResponse wiktionaryResponse;
 
     /**
+     * The arguments passed to this method are evaluated. In case of an error a {@link ValidationException}
+     * or {@link SupportException} is thrown. In case all evaluations are positive a {@link Wiktionary.WiktionaryTask}
+     * is executed.
      *
-     * @param wiktionaryResponse
-     * @param word
-     * @param source
-     * @param target
-     * @throws ValidationException
-     * @throws SupportException
+     * @param wiktionaryResponse Activity that calls the method and implements {@link WiktionaryResponse}
+     * @param word Selected text.
+     * @param source Source language.
+     * @param target Target language.
+     * @throws ValidationException Thrown if validation fails.
+     * @throws SupportException Thrown when feature not supported.
      */
     public void enrichFromWiktionary(WiktionaryResponse wiktionaryResponse, String word, String source, String target) throws ValidationException, SupportException {
         Log.i(CLASS_TAG, "enrichFromWiktionary in Wiktionary called with wiktionaryResponse and parameters: word=" + word + " source=" + source + " target=" + target);
@@ -119,14 +121,17 @@ public class Wiktionary {
     }
 
     /**
-     *
+     * Custom WiktionaryTask extended from {@link AsyncTask} for retrieving information from
+     * Wiktionary
      */
     private class WiktionaryTask extends AsyncTask<Void, Void, JSONObject> {
 
         /**
+         * Sends specified arguments to a Wiktionary parser and receives json object as a response. In case
+         * any other {@link HttpStatus} code than OK is returned, a json object with a corresponding
+         * error message is returned.
          *
-         * @param params
-         * @return
+         * @return json object of the retrieved information from Wiktionary.
          */
         @Override
         protected JSONObject doInBackground(Void... params) {
@@ -191,8 +196,8 @@ public class Wiktionary {
         }
 
         /**
-         *
-         * @param json
+         * Calls the method {@link WiktionaryResponse#wiktionaryFinished(JSONObject)} and passes
+         * on a json object.
          */
         @Override
         protected void onPostExecute(JSONObject json) {
@@ -200,11 +205,6 @@ public class Wiktionary {
             wiktionaryResponse.wiktionaryFinished(json);
         }
 
-        /**
-         *
-         * @param response
-         * @return
-         */
         private JSONObject getJSON(String response) {
             JSONObject json = null;
             try {
