@@ -255,7 +255,8 @@ public class MainActivity extends Activity implements
             File imageFile = null;
             try {
                 imageFile = createImageFile();
-            } catch (IOException ex) {
+            } catch (IOException e) {
+                e.printStackTrace();
                 Log.d(CLASS_TAG, "Exception while creating file");
                 showToast("Could not create a new image file");
             }
@@ -491,7 +492,7 @@ public class MainActivity extends Activity implements
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", new Locale("en")).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CTE");
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
 
         this.imagePath = "file:" + image.getAbsolutePath();
