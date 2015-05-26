@@ -1,3 +1,19 @@
+/**
+ * Copyright 2015 Moritz Tomasi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
+
 package com.example.moritztomasi.clicklesstextenricherapplication.activities;
 
 import android.app.Activity;
@@ -34,67 +50,34 @@ import org.json.JSONObject;
 import java.io.File;
 
 /**
- *
+ * This is the activity shown when the user want to correct the mistakes made by the ocr engine
+ * manually. There is also the option of changing the target language. The associated layout file is
+ * activity_retry. If the user chooses to retry the information is again sent to the web service.
+ * After that the application returns to {@link ResultActivity}.
  */
 public class RetryActivity extends Activity implements
         ChooseToLanguageDialog.ChooseToLanguageListener,
         TranslateResponse {
 
-    /**
-     *
-     */
     private static final String CLASS_TAG = "RetryActivity";
-
-    /**
-     *
-     */
     private static final CharSequence TAB_TITLES[] = {"CORRECT ORIGINAL", "IMAGE"};
-
-    /**
-     *
-     */
     private static final int NUM_TABS = 2;
 
-    /**
-     *
-     */
     private EditText editText;
-
-    /**
-     *
-     */
     private Button toButton;
 
-    /**
-     *
-     */
     private String source;
-
-    /**
-     *
-     */
     private String target;
-
-    /**
-     *
-     */
     private String text;
-
-    /**
-     *
-     */
     private String imagePath;
-
-    /**
-     *
-     */
     private File imageFile;
 
     /***************************** INIT *****************************/
 
     /**
-     *
-     * @param savedInstanceState
+     * First method called in Activity lifecycle. Initializes tabs in {@link SlidingTabLayout} and
+     * sets color for tab indicator. The information passed on by the intent is stored in local
+     * variables.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,8 +117,7 @@ public class RetryActivity extends Activity implements
     /***************************** TRANSLATION SETTINGS *****************************/
 
     /**
-     *
-     * @param view
+     * Opens a dialog for choosing a target language.
      */
     public void showTranslateToDialog(View view) {
         Log.i(CLASS_TAG, "showTranslateToDialog in RetryActivity called");
@@ -147,8 +129,12 @@ public class RetryActivity extends Activity implements
     }
 
     /**
+     * This method is called by {@link ChooseToLanguageDialog} over the interface
+     * {@link ChooseToLanguageDialog.ChooseToLanguageListener} when an option in the dialog is
+     * chosen or the dialog is closed. If the dialog is just closed none of the cases are executed.
+     * A string representation of the target language is stored in target.
      *
-     * @param which
+     * @param which Integer indicating which target language was chosen
      */
     @Override
     public void onToLanguageDialogClick(int which) {
@@ -170,8 +156,7 @@ public class RetryActivity extends Activity implements
     }
 
     /**
-     *
-     * @param view
+     * Show the original image.
      */
     public void showOriginalImage(View view) {
         Log.i(CLASS_TAG, "showOriginalImage in RetryActivity called");
@@ -193,8 +178,11 @@ public class RetryActivity extends Activity implements
     /***************************** ENRICHMENT AND START RESULT ACTIVITY *****************************/
 
     /**
-     *
-     * @param view
+     * Instantiates a {@link Translate} service object and passes source language, target language,
+     * the path to the selected image and the corrected text. The next step will be delegated by use of the
+     * interface {@link TranslateResponse} and the method {@link TranslateResponse#translateFinished(JSONObject)}.
+     * During the execution of this method no progress bar should be showing. If an error occurs a
+     * toast will be shown.
      */
     public void go(View view) {
         Log.i(CLASS_TAG, "go in RetryActivity called");
@@ -220,8 +208,13 @@ public class RetryActivity extends Activity implements
     }
 
     /**
+     * This method is called by {@link Translate} over the interface
+     * {@link TranslateResponse} as soon as the web service returns its json response.
+     * If the json is null or error is found inside said json, the method returns and shows
+     * a toast with the provided error message. Otherwise an {@link Intent} is created and a new
+     * activity started. During the execution of this method no progress bar should be showing.
      *
-     * @param json
+     * @param json Response from web service in form of a json.
      */
     @Override
     public void translateFinished(JSONObject json) {
@@ -271,10 +264,6 @@ public class RetryActivity extends Activity implements
 
     /***************************** HELPER METHODS *****************************/
 
-    /**
-     *
-     * @param text
-     */
     private void showToast(String text) {
         Log.i(CLASS_TAG, "showToast in RetryActivity called");
 
@@ -291,7 +280,12 @@ public class RetryActivity extends Activity implements
     /***************************** HELPER CLASSES *****************************/
 
     /**
-     *
+     * Custom ViewPagerAdapter extended from {@link PagerAdapter} for displaying tabs.
+     * Contains a tab for the correction of the text, which is represented by the layout
+     * tab_correct_text, and a tab for showing the original image, which is represented
+     * by the layout tab_original_image. All layout elements inside the tabs, which are
+     * changed programmatically, have to be initialized while the tabs themselves are
+     * initialized.
      */
     private class ViewPagerAdapter extends PagerAdapter {
 

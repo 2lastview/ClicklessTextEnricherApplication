@@ -1,3 +1,19 @@
+/**
+ * Copyright 2015 Moritz Tomasi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.moritztomasi.clicklesstextenricherapplication.activities;
 
 import android.app.Activity;
@@ -46,119 +62,49 @@ import java.io.File;
 import java.util.Iterator;
 
 /**
- *
+ * This is the activity shown after information is returned from the web service. It is used to
+ * display said information. The user is also given the possibility of enriching the gathered
+ * information by searching Wikipedia, Wiktionary and Google. The associated layout file is
+ * activity_result.
  */
 public class ResultActivity extends Activity implements
         SelectionText.SelectionListener,
         WikipediaResponse,
         WiktionaryResponse {
 
-    /**
-     *
-     */
     private static final String CLASS_TAG = "ResultActivity";
-
-    /**
-     *
-     */
     private static final CharSequence TAB_TITLES[] = {"ORIGINAL + TRANSLATION", "IMAGE"};
-
-    /**
-     *
-     */
     private static final int NUM_TABS = 2;
 
-    /**
-     *
-     */
     private EditText originalText;
-
-    /**
-     *
-     */
     private EditText translationText;
 
-    /**
-     *
-     */
     private SlidingUpPanelLayout slidingPaneLayout;
 
-    /**
-     *
-     */
     private Button wikipedia;
-
-    /**
-     *
-     */
     private Button wiktionary;
-
-    /**
-     *
-     */
     private Button google;
-
-    /**
-     *
-     */
     private TextView webTextView;
-
-    /**
-     *
-     */
     private ScrollView webScrollView;
 
-    /**
-     *
-     */
     private String source;
-
-    /**
-     *
-     */
     private String target;
-
-    /**
-     *
-     */
     private String detected;
-
-    /**
-     *
-     */
     private String text;
-
-    /**
-     *
-     */
     private String translation;
-
-    /**
-     *
-     */
     private String imagePath;
-
-    /**
-     *
-     */
     private File imageFile;
-
-    /**
-     *
-     */
     private String selectedText;
 
-    /**
-     *
-     */
     private Intent intent;
 
 
     /***************************** INIT *****************************/
 
     /**
-     *
-     * @param savedInstanceState
+     * First method called in Activity lifecycle. Initializes tabs in {@link SlidingTabLayout} and
+     * sets color for tab indicator. The information passed on by the intent is stored in local
+     * variables.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,8 +146,7 @@ public class ResultActivity extends Activity implements
     /***************************** TRANSLATION SETTINGS *****************************/
 
     /**
-     *
-     * @param view
+     * Show the original image.
      */
     public void showOriginalImage(View view) {
         Log.i(CLASS_TAG, "showOriginalImage in ResultActivity called");
@@ -223,8 +168,8 @@ public class ResultActivity extends Activity implements
     /***************************** START RETRY ACTIVITY *****************************/
 
     /**
-     *
-     * @param view
+     * Starts a {@link RetryActivity}. All the information is passed on using the same
+     * {@link Intent}.
      */
     public void correctAndRetry(View view) {
         this.intent.setClass(this, RetryActivity.class);
@@ -237,9 +182,12 @@ public class ResultActivity extends Activity implements
     /***************************** ACTUAL ENRICHMENT *****************************/
 
     /**
+     * This method is called by {@link SelectionText} over the interface {@link SelectionText.SelectionListener}
+     * every time a word is selected in the corresponding {@link SelectionText} or the selection
+     * changes. The selected text is then extracted and stored in a local variable.
      *
-     * @param selStart
-     * @param selEnd
+     * @param selStart Start index of the selection
+     * @param selEnd End index of the selection
      */
     @Override
     public void onSelected(int selStart, int selEnd) {
@@ -259,8 +207,9 @@ public class ResultActivity extends Activity implements
     }
 
     /**
-     *
-     * @param view
+     * Instantiates a {@link Wikipedia} service object and passes source language, target language
+     * and the selected text. The next step will be delegated by use of the
+     * interface {@link WikipediaResponse} and the method {@link WikipediaResponse#wikipediaFinished(JSONObject)}.
      */
     public void wikipedia(View view) {
         Log.i(CLASS_TAG, "wikipedia in ResultActivity called");
@@ -287,8 +236,12 @@ public class ResultActivity extends Activity implements
     }
 
     /**
+     * This method is called by {@link Wikipedia} over the interface
+     * {@link WikipediaResponse} as soon as the Wikipedia returns its json response.
+     * If the json is null or error is found inside said json, the method returns and shows
+     * the error in the TextView. Otherwise an the returned information is displayed in said TextView.
      *
-     * @param json
+     * @param json Response from Wikipedia in form of a json.
      */
     @Override
     public void wikipediaFinished(JSONObject json) {
@@ -353,8 +306,9 @@ public class ResultActivity extends Activity implements
     }
 
     /**
-     *
-     * @param view
+     * Instantiates a {@link Wiktionary} service object and passes source language, target language
+     * and the selected text. The next step will be delegated by use of the
+     * interface {@link WiktionaryResponse} and the method {@link WiktionaryResponse#wiktionaryFinished(JSONObject)}.
      */
     public void wiktionary(View view) {
         Log.i(CLASS_TAG, "wiktionary in ResultActivity called");
@@ -381,8 +335,16 @@ public class ResultActivity extends Activity implements
     }
 
     /**
+     * This method is called by {@link Wiktionary} over the interface
+     * {@link WiktionaryResponse} as soon as Wiktionary returns its json response.
+     * If the json is null or error is found inside said json, the method returns and shows
+     * the error in the TextView. Otherwise an the returned information is displayed in said TextView.
      *
-     * @param json
+     * Wiktionary is not queried directly. A Wiktionary Parser written by Yves Bourques is used.
+     * Information regarding this parser can be found on his website:
+     * http://www.igrec.ca/projects/wiktionary-text-parser/
+     *
+     * @param json Response from Wikipedia in form of a json.
      */
     @Override
     public void wiktionaryFinished(JSONObject json) {
@@ -430,8 +392,7 @@ public class ResultActivity extends Activity implements
     }
 
     /**
-     *
-     * @param view
+     * Opens a browser and a google search for the selected text.
      */
     public void google(View view) {
         Log.i(CLASS_TAG, "google in ResultActivity called");
@@ -449,10 +410,6 @@ public class ResultActivity extends Activity implements
 
     /***************************** HELPER METHODS *****************************/
 
-    /**
-     *
-     * @param text
-     */
     private void showToast(String text) {
         Log.i(CLASS_TAG, "showToast in MainActivity called");
 
@@ -469,7 +426,14 @@ public class ResultActivity extends Activity implements
     /***************************** HELPER CLASSES *****************************/
 
     /**
-     *
+     * Custom ViewPagerAdapter extended from {@link PagerAdapter} for displaying tabs.
+     * Contains a tab for displaying text extracted from the chosen image as well as the
+     * corresponding translation, which is represented by the layout tab_original_translation_enrichment,
+     * and a tab for showing the original image, which is represented by the layout tab_original_image.
+     * To show the enrichment information a {@link SlidingUpPanelLayout} is used. This
+     * SlidingPaneLayout has to be initialized and modified in this class. All Callbacks for
+     * starting of a contextual action bar menu are contained in this class. This is the case
+     * when text is selected in a TextView.
      */
     private class ViewPagerAdapter extends PagerAdapter {
 
@@ -491,22 +455,26 @@ public class ResultActivity extends Activity implements
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View view = null;
+
+            // TAB ORIGINAL + TRANSLATION
             if(position == 0) {
                 view = getLayoutInflater().inflate(R.layout.tab_original_translation_enrichment, container, false);
 
-                // SLIDING PANEL
+                // SLIDING PANE LAYOUT
                 slidingPaneLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_pane_layout);
                 slidingPaneLayout.setGravity(Gravity.BOTTOM);
-                slidingPaneLayout.setAnchorPoint(0.5f);
+                slidingPaneLayout.setAnchorPoint(0.4f);
                 slidingPaneLayout.setTouchEnabled(false);
                 slidingPaneLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
 
+                // BUTTONS
                 wikipedia = (Button) view.findViewById(R.id.wikipedia_button);
 
                 wiktionary = (Button) view.findViewById(R.id.wiktionary_button);
 
                 google = (Button) view.findViewById(R.id.google_button);
 
+                // TEXTVIEW FOR ENRICHMENT INFORMATION
                 webScrollView = (ScrollView) view.findViewById(R.id.web_scrollView);
                 webTextView = (TextView) view.findViewById(R.id.web_textView);
                 webTextView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -515,6 +483,7 @@ public class ResultActivity extends Activity implements
                 originalText = (SelectionText) view.findViewById(R.id.original_text_editText);
                 originalText.setText(text);
 
+                // Set Callback for custom action car menu on original selected.
                 originalText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
                     @Override
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -572,6 +541,8 @@ public class ResultActivity extends Activity implements
                 // TRANSLATION TEXT
                 translationText = (SelectionText) view.findViewById(R.id.translation_text_editText);
                 translationText.setText(translation);
+
+                // Set Callback for custom action car menu on translation selected.
                 translationText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
                     @Override
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -636,6 +607,7 @@ public class ResultActivity extends Activity implements
                 title = "TRANSLATION: <font color='#696969'>" + LanguageSupport.convert(target.trim()) + "</font>";
                 translationTitleText.setText(Html.fromHtml(title));
             }
+            // TAB IMAGE
             else if(position == 1) {
                 view = getLayoutInflater().inflate(R.layout.tab_original_image, container, false);
                 ImageView chosenImage = (ImageView) view.findViewById(R.id.original_image_imageView);
