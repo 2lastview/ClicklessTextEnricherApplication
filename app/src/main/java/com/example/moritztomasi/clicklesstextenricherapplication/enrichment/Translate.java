@@ -46,7 +46,7 @@ import java.io.IOException;
 public class Translate {
 
     private static final String CLASS_TAG = "Translate";
-    private static final String TRANSLATE_URL = "http://127.0.0.1:8080/enrich";
+    private static final String TRANSLATE_URL = "http://46.101.147.239:8080/enrich";
 
     private String source;
     private String target;

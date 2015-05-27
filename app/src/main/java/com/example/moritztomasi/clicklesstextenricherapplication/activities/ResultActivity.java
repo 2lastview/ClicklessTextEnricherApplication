@@ -214,6 +214,8 @@ public class ResultActivity extends Activity implements
     public void wikipedia(View view) {
         Log.i(CLASS_TAG, "wikipedia in ResultActivity called");
 
+        this.webTextView.setText("Loading...");
+
         if(translationText.isFocused()) {
             try {
                 Log.i(CLASS_TAG, "instantiation of Wikipedia");
@@ -312,6 +314,8 @@ public class ResultActivity extends Activity implements
      */
     public void wiktionary(View view) {
         Log.i(CLASS_TAG, "wiktionary in ResultActivity called");
+
+        this.webTextView.setText("Loading...");
 
         if(translationText.isFocused()) {
             try {
