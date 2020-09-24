@@ -6,7 +6,7 @@ to extract text from images and translate said text into a specified language. F
 the possibility to enrich this translation with information from Wikipedia, Wiktionary and Google. This
 repository contains the source code for haello.
 
-####Description
+## Description
 
 * You can choose an image from the gallery or by taking one with the camera.
 
@@ -34,24 +34,24 @@ stage there is also the possibility to change the TO language.
 
 <img src="https://github.com/2lastview/haello-Android-Application/blob/master/screenshots/5.png" width="300px" />
 
-####Build
+## Build
 
 Import the root folder into your IDE (tested on Android Studio). Find the class [translate](https://github.com/2lastview/haello-Android-Application/blob/master/app/src/main/java/com/example/moritztomasi/clicklesstextenricherapplication/enrichment/Translate.java). There the
 TRANSLATE_URL can be pointed to the URL where a implementation of the [haello RESTful web service](https://github.com/2lastview/haello-Rest-Service)
 is deployed. Then simply build and run the project.
 
-####Support
+## Support
 
 The application has been tested with SDK version 16 and above.
 
-####Dependencies
+## Dependencies
 
 * [SlidingUpPanel](https://github.com/umano/AndroidSlidingUpPanel) by umano.
 
 * Wiktionary is not queried directly. A Wiktionary Parser written by Yves Bourques is used. Information
 regarding this parser can be found on his [website](http://www.igrec.ca/projects/wiktionary-text-parser/).
 
-####Copyright and License
+##Copyright and License
 
 Author: Moritz Tomasi (moritz.tomasi at gmail dot com)
 
