@@ -1,6 +1,11 @@
 haello-Android-Application
 ==========================
 
+## **_IMPORTANT NOTE_**
+**This repository is to be considered _DEPRECATED_.**
+
+This Android app was developed for a bachelor thesis in "Computer Science and Visual Computing" at the Technical University of Vienna by Moritz Tomasi.
+
 This repository contains the source code for the haello Android application. It uses [**haello RESTful web service**](https://github.com/2lastview/haello-Rest-Service)
 to extract text from images and translate said text into a specified language. Further it gives you
 the possibility to enrich this translation with information from Wikipedia, Wiktionary and Google.
