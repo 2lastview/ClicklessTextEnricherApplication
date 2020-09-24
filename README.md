@@ -50,7 +50,7 @@ The application has been tested with SDK version 16 and above.
 * Wiktionary is not queried directly. A Wiktionary Parser written by Yves Bourques is used. Information
 regarding this parser can be found on his [website](http://www.igrec.ca/projects/wiktionary-text-parser/).
 
-##Copyright and License
+## Copyright and License
 
 Author: Moritz Tomasi (moritz.tomasi at gmail dot com)
 
