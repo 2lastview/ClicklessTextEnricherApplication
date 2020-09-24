@@ -3,8 +3,7 @@ haello-Android-Application
 
 This repository contains the source code for the haello Android application. It uses [**haello RESTful web service**](https://github.com/2lastview/haello-Rest-Service)
 to extract text from images and translate said text into a specified language. Further it gives you
-the possibility to enrich this translation with information from Wikipedia, Wiktionary and Google. This
-repository contains the source code for haello.
+the possibility to enrich this translation with information from Wikipedia, Wiktionary and Google.
 
 ## Description
 
